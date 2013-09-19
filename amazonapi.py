@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
+import re
 class AMAZONAPI:
 
     url_amazon = "http://www.amazon.in/gp/product/"#this will be the base url for all the product. ISBN10 number will be appended to this
@@ -47,7 +48,7 @@ class AMAZONAPI:
             span_heading = book_description.find_all('span', class_='byLinePipe')#this contains all the title
             for title, content in zip(span_heading, span_content):
                 if title.text != '' and content.text != '':#assigning key values to each
-                    book_desc_json[title.text.strip().replace(':','')] = content.text.strip()
+                    book_desc_json[re.sub('[|:]','',title.text).strip()] = re.sub('[|:]','',content.text).strip()
             book_details = soup.find(id='postBodyPS')
             if book_details:
                 book_desc_json['book details'] = book_details.text.strip()
@@ -59,7 +60,7 @@ class AMAZONAPI:
             product_desc_contents = product_description.find_all('div', class_='productDescriptionWrapper')
             for title, content in zip(product_desc_titles, product_desc_contents):#iterating over both objects at once
                 if title.text != '' and content.text != '':#assigning key values to each
-                    product_desc_json[title.text.strip()] = content.text.strip()
+                    product_desc_json[re.sub('[|:]','',title.text).strip()] = re.sub('[|:]','',content.text).strip()
             self.response_json["product description"] = product_desc_json
 
         if product_details:
@@ -71,18 +72,22 @@ class AMAZONAPI:
                     if title.text.strip() == 'Average Customer Review:':
                         rating = li.find('span', class_ = 'swSprite')
                         if rating:
-                            product_details[title.text.strip().replace(':','')] = rating.text.strip()
+                            product_details[re.sub('[|:]','',title.text).strip()] = re.sub('[|:]','',rating.text).strip()
                     elif title.text.strip() == 'Amazon Bestsellers Rank:':
                         amazon_bestsellers = {}
+                        m = re.search('([\d,]*\d+) in Books', li.text)
+                        if m:
+                            rank =  m.groups()[0]
+                            amazon_bestsellers['Books'] = rank
                         ranks = li.find_all('li', class_='zg_hrsr_item')
                         for item in ranks:
                             category = item.find('span', class_='zg_hrsr_ladder')
                             rank = item.find('span', class_='zg_hrsr_rank')
                             if rank and category:
-                                amazon_bestsellers[category.text.strip()] = rank.text.strip().replace('#','')
+                                amazon_bestsellers[re.sub('[|:]','',category.text).strip()] = re.sub('[|:]','',rank.text).strip()
                         product_details['Amazon Bestsellers'] = amazon_bestsellers
                     else:
-                        product_details[title.text.strip().replace(':','')] = li.text.replace(title.text,"").strip()
+                        product_details[re.sub('[|:]','',title.text).strip()] = re.sub('[|:]','',li.text.replace(title.text,'')).strip()
             self.response_json["product details"] = product_details
 
     def get_json(self):
