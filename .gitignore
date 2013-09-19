@@ -39,3 +39,4 @@ nosetests.xml
 *.pyv
 #for idea
 .idea/
+*.py~
