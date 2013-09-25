@@ -1,7 +1,7 @@
-pnrapi-python
+amazonapi-python
 =============
 
-A Python web-scraper for Amazon India book store.
+A Python web-scraper for Amazon India book store. Web-scraper receives a 10 digit ISBN10 number, and uses it to fetch details like title, price, author from Amazon India Book Store
 
 Requirements
 ------------
@@ -47,7 +47,6 @@ The reponse is a json object as follows:
             'Publication Date': '27 February 2013',
             'book details': "About The BookEVIL HAS RISEN.ONLY A GOD CAN STOP IT.Shiva is gathering his forces. He reaches the Naga capital, Panchavati, and Evil is finally revealed. The Neelkanth prepares for a holy war against his true enemy, a man whose name instils dread in the fiercest of warriors.India convulses under the onslaught of a series of brutal battles. It's a war for the very soul of the nation. Many will die. But Shiva must not fail, no matter what the cost. In his desperation, he reaches out to the ones who have never offered any help to him the Vayuputras.Will he succeed? And what will be the real cost of battling Evil? To india? And to Shiva's soul?Discover the answer to these mysteries in this concluding part of the bestselling Shiva Trilogy."
         },
-        'isbn10': '9382618341',
         'title': 'The Oath of the Vayuputras (Shiva Trilogy) [Paperback]',
         'product description': {
             'About the Author': 'Amish is a 1974-born, IIM (Kolkata)-educated, boring banker turned happy author. The success of his debut book, The Immortals of Meluha (Book 1 of the Shiva Trilogy), encouraged him to give up a fourteen-yearold career in financial services to focus on writing. He is passionate about history, mythology and philosophy, finding beauty and meaning in all world religions.'

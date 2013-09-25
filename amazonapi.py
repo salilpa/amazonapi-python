@@ -35,8 +35,6 @@ class AMAZONAPI:
             return True
 
     def __getDetails(self,soup):
-        #set pnr
-        self.response_json["isbn10"] = self.isbn10
         title = soup.find(id='btAsinTitle')
         list_price = soup.find(id='listPriceValue')
         actual_price = soup.find(id='actualPriceValue')
