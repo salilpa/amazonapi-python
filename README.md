@@ -19,6 +19,10 @@ Sample Request
     else:
         print p.error
 
+Sample Request through Command Line
+--------------
+    python main.py 9382618341 9381626685
+
 Sample Response
 ---------------
 The reponse is a json object as follows:
